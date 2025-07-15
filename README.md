@@ -43,6 +43,8 @@ npm install
 
 ## Como Usar
 
+* Temporário
+
 Vá até a pasta backend-financas, localizada na pasta src/services.
 
 ![Localização da pasta]({49EDAE3B-4CBB-4B8E-9271-36B1471284D0}.png)
