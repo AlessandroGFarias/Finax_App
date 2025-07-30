@@ -35,6 +35,7 @@ function AuthProvider({ children }) {
                 api.defaults.headers['Authorization'] = `Bearer ${storagedToken}`
 
                 setUser(response.data)
+                console.log(response.data)
                 setLoadingAuth(false)
             }
 

@@ -22,7 +22,7 @@ export default function Home({ navigation }) {
     const date = new Date()
     const [dateMovements, setDateMovements] = useState()
     
-        const { loading, saldo, transacoes} = useHome({
+        const { loading, saldo, transacoes } = useHome({
             dateMovements
         })
 
@@ -69,6 +69,7 @@ export default function Home({ navigation }) {
 
             <ListTransaction
                 data={transacoes}
+                keyExtractor={item => item.id}
                 onSelect={(item) => {
                     console.log('Details', { item })
                 }}

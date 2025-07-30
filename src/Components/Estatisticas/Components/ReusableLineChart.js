@@ -6,7 +6,7 @@ import { AuthContext } from '../../../contexts/auth';
 
 const ReusableLineChart = ({
     historico,
-    isActive,
+    chartWidth,
     filter,
     selectedIndex,
     chartHeight = 250,
@@ -49,7 +49,7 @@ const ReusableLineChart = ({
 
     const labels = handleLabelGrafico();
     // Se for mês, largura proporcional à quantidade de pontos (ex: 60px por ponto)
-    const chartWidth = filter.mes ? Math.max(isActive, labels.length * 70) : isActive;
+    const ChartWidth = filter.mes ? Math.max(chartWidth, labels.length * 70) : chartWidth;
 
  function handleLabelGrafico() { 
                 
@@ -94,7 +94,7 @@ const ReusableLineChart = ({
                 labels: labels,
                 datasets: [{ data: filter.ano ? agrupadoPorMesArray.map(array => array.total) : Object.values(agrupadoObj) }],
             }}
-            width={chartWidth}
+            width={ChartWidth}
             height={chartHeight}
             withHorizontalLabels={false}
             withInnerLines={false}

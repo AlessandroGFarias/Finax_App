@@ -1,14 +1,16 @@
-import React, { useContext, useReducer } from "react";
+import React, { useContext } from "react";
 import {
     SafeAreaView,
     View,
     Text,
     StyleSheet,
     TouchableOpacity,
-    FlatList
+    FlatList, 
+    Image
 } from "react-native";
 
 import { AuthContext } from "../../../contexts/auth";
+import IconOptionButton from "../../../Components/Profile/IconOptionButton";
 //----------------------------------------------------------------------------------------------------------------------------------------
 
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
@@ -46,15 +48,15 @@ export default function Perfil({ navigation }) {
         }
     ]
 
-    const OptionsProfile = ( props ) => {
+    const OptionsServiceProfile = ( {Title, onPress, icon} ) => {
         return (
 
             <TouchableOpacity
             style={styles.listItem}
-            onPress={props.data.onPress}
+            onPress={onPress}
             >
-                <MaterialCommunityIcons name={props.data.icon} size={40} color='#000'/>
-                <Text style={styles.textInfo}>{props.data.title}</Text>
+                <MaterialCommunityIcons name={icon} size={40} color='#000'/>
+                <Text style={styles.textInfo}>{Title}</Text>
             </TouchableOpacity>
 
         )
@@ -66,7 +68,7 @@ export default function Perfil({ navigation }) {
 
                 <View style={styles.bannerContent}>
 
-                    <TouchableOpacity onPress={() => navigation.goBack()}>
+                    <TouchableOpacity onPress={() => singOut()}>
                         <MaterialCommunityIcons name='chevron-left' color={'#fff'} size={35} />
                     </TouchableOpacity>
 
@@ -78,18 +80,13 @@ export default function Perfil({ navigation }) {
 
                 <View style={styles.containerProfPicture}>
 
-                    <View style={styles.profilePicture}></View>
-                    
+                    <Image style={styles.profilePicture} source={{ uri: user.picture }} />
+
                     <Text style={styles.profileName}>{toCaptalize(user.name)}</Text>
                     <Text style={styles.profileEmail}>{user.email}</Text>
                 </View>
                 <SafeAreaView style={styles.containerList}>
-                    <FlatList
-                        showsVerticalScrollIndicator={false}
-                        data={optionsUser}
-                        keyExtractor={( item ) => item.id }
-                        renderItem={({ item }) => <OptionsProfile data={item}/>}
-                    />
+                   <IconOptionButton />
                 </SafeAreaView>
             </View>
         </SafeAreaView>

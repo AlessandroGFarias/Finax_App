@@ -7,8 +7,10 @@ export const useHistorico = ({ filtro, labelGrafico, parseDateSafe }) => {
 
     const [dados, setDados] = useState([]);
     const [historico, setHistorico] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
+
         if (dados.length > 0) return;
 
         const fetchDados = async () => {
@@ -42,6 +44,7 @@ export const useHistorico = ({ filtro, labelGrafico, parseDateSafe }) => {
     }, []);
 
     useEffect(() => {
+        
         if (!dados.length) return;
 
         const hoje = new Date();
@@ -65,6 +68,7 @@ export const useHistorico = ({ filtro, labelGrafico, parseDateSafe }) => {
                     );
                 })
             );
+
         } else if (labelGrafico.mes) {
             filtroResultado = dados.filter(item => {
                 const d = new Date(parseDateSafe(item.date));
@@ -82,8 +86,9 @@ export const useHistorico = ({ filtro, labelGrafico, parseDateSafe }) => {
         }
 
         setHistorico(filtroResultado);
+        setLoading(false);
 
     }, [dados, labelGrafico, filtro]);
 
-    return { dados, historico };
+    return { dados, historico, loading };
 };

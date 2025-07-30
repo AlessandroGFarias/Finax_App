@@ -3,92 +3,55 @@ import { View, TouchableOpacity, Text, Modal, StyleSheet } from 'react-native';
 import Octicons from 'react-native-vector-icons/Octicons'
 
 const FilterDropdown = ({
-    options = [],
+    options,
     selected,
     onChange,
     style,
-    dropdownStyle,
-    textStyle,
-    iconColor = '#616161',
-    iconSize = 15,
-    placeholder = 'Selecione',
+    iconName,
+    iconSize,
+    iconColor,
 }) => {
     const [modalVisible, setModalVisible] = useState(false);
 
     return (
-        <View style={style}>
+        <View style={style.containerFiltroGastoOuReceita}>
             <TouchableOpacity
                 onPress={() => setModalVisible(true)}
                 activeOpacity={0.4}
-                style={[
-                    styles.button,
+                style={[style.buttonFilterGastoOuReceita,
                     modalVisible && { borderBottomLeftRadius: 0, borderBottomRightRadius: 0 },
                 ]}
             >
-                <Text style={[styles.text, textStyle]}>
-                    {selected || placeholder}
+                <Text style={style.buttonText}>
+                    {selected}
                 </Text>
-                <Octicons name="chevron-down" size={iconSize} color={iconColor} />
+                { iconName && (<Octicons name={iconName} size={iconSize ? iconSize : 15} color={iconColor ? iconColor : '#fff'} />)}
             </TouchableOpacity>
 
             <Modal
                 visible={modalVisible}
-                transparent
-                onRequestClose={() => setModalVisible(false)}
+                transparent={true}
+                onPress={() => setModalVisible(false)}
+                style={{ flex: 1 }}
                 animationType="fade"
             >
-                <TouchableOpacity
-                    style={{ flex: 1 }}
-                    onPress={() => setModalVisible(false)}
-                    activeOpacity={1}
-                >
-                    <View style={[styles.dropdown, dropdownStyle]}>
-                        {options.map((option) => (
-                            <TouchableOpacity
-                                key={option}
-                                style={styles.option}
-                                onPress={() => {
-                                    onChange(option);
-                                    setModalVisible(false);
-                                }}
-                            >
-                                <Text style={{ textAlign: 'center', color: '#616161' }}>{option}</Text>
-                            </TouchableOpacity>
-                        ))}
-                    </View>
-                </TouchableOpacity>
+                <View style={style.filterGastoOuReceita}>
+                    {options.map((option) => (
+                        <TouchableOpacity
+                            key={option}
+                            style={[style.buttonFilterGastoOuReceita, {borderRadius:0}]}
+                            onPress={() => {
+                                onChange(option);
+                                setModalVisible(false);
+                            }}
+                        >
+                            <Text style={{ textAlign: 'center', color: '#616161' }}>{option}</Text>
+                        </TouchableOpacity>
+                    ))}
+                </View>
             </Modal>
         </View>
     );
 };
-
-const styles = StyleSheet.create({
-    button: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        padding: 10,
-        backgroundColor: '#fff',
-        borderRadius: 8,
-        borderWidth: 0.5,
-        borderColor: '#ccc',
-        justifyContent: 'space-between',
-    },
-    text: {
-        color: '#616161',
-        fontSize: 14,
-    },
-    dropdown: {
-        backgroundColor: '#fff',
-        borderBottomRightRadius: 8,
-        borderBottomLeftRadius: 8,
-        elevation: 4,
-        overflow: 'hidden',
-    },
-    option: {
-        padding: 20,
-        borderWidth: 0.5,
-        borderColor: '#eee',
-    },
-});
 
 export default FilterDropdown;

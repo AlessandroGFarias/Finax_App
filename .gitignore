@@ -67,6 +67,5 @@ yarn-error.log
 
 # Environment variable files
 .env
-/src/services/backend-financas
 {File_Location}.png
 {Command}.png
